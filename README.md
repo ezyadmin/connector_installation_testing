@@ -30,8 +30,7 @@ ansible-playbook run.yml -i tests/inventory -vvvv --extra-vars="{
       \"cmd\": \"###_command_line_2###\",
       \"regex\": \"###_regex_pattern_2###\"
     }
-  ]}"                                     \
-;
+  ]}"
 ```
 
 ## Testing
