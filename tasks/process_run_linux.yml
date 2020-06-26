@@ -1,0 +1,28 @@
+---
+- name: Exec linux command {{ item.cmd }}
+  shell: "{{ item.cmd }} 2>/dev/null"
+  register: cmd_output
+  ignore_errors: True
+  #check_mode: yes
+
+- set_fact:
+    regexp_pattern: "{{ item.regex }}"
+
+- set_fact:
+    regexOutput: "{{ cmd_output.stdout | regex_search(item.regex) }}"
+
+- debug:
+    msg : "regexOutput = {{ regexOutput }}"
+
+- set_fact:
+    lOutput : {
+      "conn_id" : "{{ item.conn_id }}",
+      "module" : "{{ item.module }}",
+      "cmd" : "{{ item.cmd }}",
+      "regex" : "{{ item.regex }}",
+      "cmd_output" : "{{ cmd_output.stdout }}",
+      "regex_output" : "{{ regexOutput }}",
+    }
+
+- set_fact:
+    ezOutput : "{{ezOutput}} + [{{lOutput}}]"
