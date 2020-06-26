@@ -1,0 +1,15 @@
+---
+- name: Main process for linux
+  block:
+    - name: ez_config --extra-var
+      include_tasks: process_run_linux.yml
+     
+      loop: "{{ list }}"
+  when: (ansible_os_family == "RedHat") or (ansible_os_family == "Redhat") or (ansible_os_family == "CentOS") or (ansible_os_family == "Debian")
+
+- name: Main process for windows
+  block:
+    - name: ez_config --extra-var
+      include_tasks: process_run_windows.yml
+      loop: "{{ ez_config }}"
+  when: ansible_os_family == "Windows"

@@ -1,0 +1,14 @@
+- name: Connector Installation Testing.
+  hosts: all
+  vars :
+    ezOutput : []
+  tasks:
+    - debug: var=list
+    - name: Include_task __> tasks/main.yml
+      include_tasks: tasks/main.yml
+
+    - name: Final output
+      debug:
+        msg: "===ezOutput>>>{{ ezOutput }}<<<ezOutput==="
+
+# ansible-playbook run.yml -i tests/inventory -vv --extra-vars='{"ez_config": [{"cmd": "whoami","regex": "(^[a-zA-Z0-9_]+$)"},{"cmd": "cat /etc/*release","regex": "DISTRIB_ID=(\\S+)"}]}'
